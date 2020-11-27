@@ -42,6 +42,10 @@ body {
     margin: .2rem;
     flex: 1 0 auto;
     height: 3rem;
+    /* text-align: right;*/
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
 }
 
 .calc__buttonRows {
@@ -49,12 +53,12 @@ body {
     flex-direction: row;
 }
 
-.calc__row{
+.calc__row {
     display: flex;
     flex-direction: column;
 }
 
-.calc__btn{
+.calc__btn {
     padding: .5rem 1.7rem;
     margin: .2rem;
     border: 1px solid rgba(0, 0, 0, .1);
@@ -62,24 +66,23 @@ body {
     justify-content: center;
 }
 
-.btn__digit{
+.btn__digit {
     background-color: rgb(240, 240, 240);
 }
 
-.btn__operator{
+.btn__operator {
     background-color: rgb(220, 220, 220);
 }
 
-.btn__equation{
+.btn__equation {
     flex: 1 0 auto;
     background-color: rgb(100, 100, 255);
-    color: rgb(255,255,255);
+    color: rgb(255, 255, 255);
 }
 
-p{
+p {
     align-items: center;
     justify-content: center;
- 
 }
 
 /*
