@@ -39,21 +39,87 @@ body {
 .calc__display {
     border: 2px solid rgba(0, 0, 0, .1);
     padding: 1rem;
-    width: 20rem;
+    margin: .2rem;
+    flex: 1 0 auto;
     height: 3rem;
 }
-.calc__operators{
+
+.calc__buttonRows {
+    display: flex;
+    flex-direction: row;
+}
+
+.calc__row{
+    display: flex;
+    flex-direction: column;
+}
+
+.calc__btn{
+    padding: .5rem 1.7rem;
+    margin: .2rem;
+    border: 1px solid rgba(0, 0, 0, .1);
+    align-items: center;
+    justify-content: center;
+}
+
+.btn__digit{
+    background-color: rgb(240, 240, 240);
+}
+
+.btn__operator{
+    background-color: rgb(220, 220, 220);
+}
+
+.btn__equation{
+    flex: 1 0 auto;
+    background-color: rgb(100, 100, 255);
+    color: rgb(255,255,255);
+}
+
+p{
+    align-items: center;
+    justify-content: center;
+ 
+}
+
+/*
+.calc__operatorGroup {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     padding: .7rem 0;
 }
-.btn--operators {
+
+.calc__operator {
     padding: .5rem 1.7rem;
     background-color: rgb(230, 230, 230);
     border: 1px solid rgba(0, 0, 0, .1);
+    border-radius: 25px;
+}
+
+.calc__digitsAndEquals {
+    display: flex;
+    flex-direction: row;
+}
+
+.calc__digitGroup {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding: .7rem 0;
+    width: 75%;
+}
+
+.calc__digit {
+    width: 33%;
+    padding: .5rem 1.7rem;
+    background-color: rgb(230, 230, 230);
+    border: 1px solid rgba(0, 0, 0, .1);
+    border-radius: 25px;
 }
 
 p {
-    margin:0;
+    margin: 0;
 }
+*/
