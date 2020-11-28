@@ -69,7 +69,7 @@ body {
     justify-content: center;
 }
 
-.btn__digit {
+.btn__digit, .btn__clear{
     background-color: rgb(249, 249, 249);
 }
 
