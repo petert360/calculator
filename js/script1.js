@@ -8,15 +8,20 @@ let displayElement = document.querySelector('.calc__display');
 
 
 function parseExpression(str) {
-    let numArr = str.split(/[-,+,x,÷]/); // regular expression segítségével
-    let opArr = str.split(/[0,1,2,3,4,5,6,7,8,9,.]/).filter(Boolean);
-    if (numArr.length <= opArr.length) { // HIBA, ha több, vagy egyenő az operátorok száma, mint a számoké
-        return 'Error'
-    } else {
-        return [numArr,
-            opArr
-        ];
-    }
+    let numArr = str.split(/[-,+,x,÷]/).filter(Boolean); // regular expression segítségével kiveszem a számokat
+    let strArr = str.split(/([-,+,x,÷])/).filter(Boolean); // regular expression segítségével tömbre alakítim a stringet
+    let opArr = strArr.filter(function (e) {               // a teljes tömbböl kiszűröm az operátorokat
+        if (e === '-' || e === '+' || e === 'x' || e === '÷') {
+            return true;
+        }
+    })
+    console.log(numArr);
+    console.log(opArr);
+    return [numArr,
+        opArr
+    ];
+
+    //let opArr = str.split(/[0,1,2,3,4,5,6,7,8,9,.]/).filter(Boolean); //ezzel nem sikerült pontosan kiemelni az operátorokat
 }
 
 function checkArraysForError(arr) {
@@ -37,9 +42,9 @@ for (let i = 0; i < btnElements.length; i += 1) {
             displayElement.textContent = '';
         } else if (btnContent === '=') {
             parsedArrays = parseExpression(displayVar);
-            if (checkArraysForError(parsedArrays)) {
-                displayVar = 'Error'
-            };
+            // if (checkArraysForError(parsedArrays)) {
+            //     displayVar = 'Error'
+            // };
             console.log(parsedArrays);
         }
         else {
