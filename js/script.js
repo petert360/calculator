@@ -1,4 +1,7 @@
- // Első lépés: az összes button elemen egy 'click' eseménykezelőt helyezek. A 'click' eseményre a gomb szövegének tartalma egy stringbe/tömbbe kerül, amit folyton bővítek a gombnyomásokra.
+// Ez a megoldás bonyolult, sok hibalehetőséget tartalmazó, nehezen debuggolható megoldás.
+
+
+// Első lépés: az összes button elemen egy 'click' eseménykezelőt helyezek. A 'click' eseményre a gomb szövegének tartalma egy stringbe/tömbbe kerül, amit folyton bővítek a gombnyomásokra.
 // Két gomb speciális funkcióval bír: az '=' kiértékeli a bevitt tartalmat, a 'C' törli a kijelzőt.
 // A második feladat: ha van egy tetszőleges string/tömb báltozóm, ami a számológép elemeit tartalmazza, hogyan értékelhetem ki?
 
@@ -81,3 +84,12 @@ for (let i = 0; i < btnElements.length; i += 1) {
         }
     })
 }
+
+
+
+
+
+
+
+
+
