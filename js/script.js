@@ -1,95 +1,73 @@
-// Ez a megoldás bonyolult, sok hibalehetőséget tartalmazó, nehezen debuggolható megoldás.
+//btnElement változót hozom létre, amihez hozzárendelem a kijelzőt.
+let displayElement = document.querySelector('.calc__display');
 
-
-// Első lépés: az összes button elemen egy 'click' eseménykezelőt helyezek. A 'click' eseményre a gomb szövegének tartalma egy stringbe/tömbbe kerül, amit folyton bővítek a gombnyomásokra.
-// Két gomb speciális funkcióval bír: az '=' kiértékeli a bevitt tartalmat, a 'C' törli a kijelzőt.
-// A második feladat: ha van egy tetszőleges string/tömb báltozóm, ami a számológép elemeit tartalmazza, hogyan értékelhetem ki?
-
-
-// Ez a függvény felel a kijelzőn megjelenő adatok feldolgozásáért
-function parseFunction(displArr) {
-    let numArr = []; //számokat tartalmazó tömb
-    let operatorArr = []; // operátorokat tartalmazó tömb
-    let numString = []; //stringet tároló átmeneti változó - akkumulátor
-    let lastValIsOperator = true;
-
-    for (let i = 0; i < displayArr.length; i += 1) {
-        if (displayArr[i] === '+' || displayArr[i] === '-' || displayArr[i] === 'x' || displayArr[i] === '/') {
-            if (lastValIsOperator) {
-                operatorArr.push(displayArr[i]);
-                console.log('Hiba - rosszul megadott operátor');
-            } else {
-                operatorArr.push(displayArr[i]);
-                numArr.push(numString);
-                numString = '';
-                lastValIsOperator = true;
-            }
-        } else {
-            numString += displayArr[i];
-            lastValIsOperator = false;
+function parseExpression(str) {
+    let numArr = str.split(/[-,+,x,÷]/).filter(Boolean); // regular expression segítségével kiveszem a számokat
+    let strArr = str.split(/([-,+,x,÷])/).filter(Boolean); // regular expression segítségével tömbre alakítim a stringet
+    let opArr = strArr.filter(function (e) {               // a teljes tömbböl kiszűröm az operátorokat
+        if (e === '-' || e === '+' || e === 'x' || e === '÷') {
+            return true;
         }
-    }
-    if (numString !== '') {
-        numArr.push(numString);  // az utolsó opertátor után akkumulált szám tárolása a tömbben
-        lastValIsOperator = false;
-    }
-    if (numArr.length <= operatorArr.length) {
-        console.log('Hiba - az operátorok száma több, vagy egyenlő, mint a számoké');
-    }
-    console.log(displayArr);
-    console.log(operatorArr);
-    console.log(numArr);
-    return calculate(numArr, operatorArr);
+    })
+    return [numArr,
+        opArr
+    ];
+    //let opArr = str.split(/[0,1,2,3,4,5,6,7,8,9,.]/).filter(Boolean); //ezzel nem sikerült pontosan kiemelni az operátorokat
 }
 
-// a feldolgozott adatokat ez e függvény számítja ki
-function calculate(numArr, operatorArr) {
-    let result = parseInt(numArr[0]);
-    for (let i = 1; i <= operatorArr.length; i += 1) {
-        if (operatorArr[i - 1] === '+') {
-            result = result + parseInt(numArr[i]);
-        } else if (operatorArr[i - 1] === '-') {
-            result = result - parseInt(numArr[i]);
-        } else if (operatorArr[i - 1] === 'x') {
-            result = result * parseInt(numArr[i]);
-        } else if (operatorArr[i - 1] === '/') {
-            result = result / parseInt(numArr[i]);
+function checkArraysForError(arr) {
+    if (arr[0].length <= arr[1].length) { // HIBA, ha több, vagy egyenő az operátorok száma, mint a számoké
+        return true;
+    }
+    return false;
+}
+
+function setDisplay(variable, display) {
+    displayVar = variable;
+    displayElement.textContent = display;
+}
+
+function calculate(parsedArrays) {  //parsedArrays[0] a számokat [1] az operátorokat tartalmazza
+    let nums = parsedArrays[0];
+    let ops = parsedArrays[1];
+    let result = Number(nums[0]);
+    for (let i = 1; i <= ops.length; i += 1) {
+        if (ops[i - 1] === '+') {
+            result = result + Number(nums[i]);
+        } else if (ops[i - 1] === '-') {
+            result = result - Number(nums[i]);
+        } else if (ops[i - 1] === 'x') {
+            result = result * Number(nums[i]);
+        } else if (ops[i - 1] === '÷') {
+            result = result / Number(nums[i]);
         }
     } return result;
 }
 
-let displayVar = '';
-let displayArr = [];
-let btnContent = '';
+// for loop segítségével minden gombon létrehozok egy eventlistenert, ami btnContent változóba tárolja a gomb tartalmát, és a tartalomtól függően funkciót renelek hozzá:
+// a "C" gomb törli a kijelzőt
+// az egyenlőségjel meghívja a bevitt kifejezést végrahajtó függvényt.
+// minden egyéb gomb tartalma hozzáadódik egy akkumulátor változóhoz aminek a tartalma megjelenik a kijelzőn
 
+let displayVar = '';
+let btnContent = '';
 let btnElements = document.querySelectorAll('.calc__btn');
-let displayElement = document.querySelector('.calc__display');
 for (let i = 0; i < btnElements.length; i += 1) {
     btnElements[i].addEventListener('click', function (event) {
-        // console.log(event.target.textContent);
         btnContent = event.target.textContent;
         if (btnContent === 'C') {
-            displayVar = '';
-            displayArr = [];
-            displayElement.textContent = '';
+            setDisplay('', '');
         } else if (btnContent === '=') {
-            displayElement.textContent = parseFunction(displayArr);
+            parsedArrays = parseExpression(displayVar);
+            if (checkArraysForError(parsedArrays)) {
+                setDisplay('', 'Error');
+            } else {
+                setDisplay(calculate(parsedArrays), calculate(parsedArrays))
+            }
         }
         else {
             displayVar += event.target.textContent;
-            displayArr.push(event.target.textContent);
             displayElement.textContent = displayVar;
-            console.log(displayVar);
-            console.log(displayArr);
         }
     })
 }
-
-
-
-
-
-
-
-
-
