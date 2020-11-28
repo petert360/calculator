@@ -2,10 +2,10 @@
 let displayElement = document.querySelector('.calc__display');
 
 function parseExpression(str) {
-    let numArr = str.split(/[-,+,x,÷]/).filter(Boolean); // regular expression segítségével kiveszem a számokat
-    let strArr = str.split(/([-,+,x,÷])/).filter(Boolean); // regular expression segítségével tömbre alakítim a stringet
+    let numArr = str.split(/[-,+,×,÷]/).filter(Boolean); // regular expression segítségével kiveszem a számokat
+    let strArr = str.split(/([-,+,×,÷])/).filter(Boolean); // regular expression segítségével tömbre alakítim a stringet
     let opArr = strArr.filter(function (e) {               // a teljes tömbböl kiszűröm az operátorokat
-        if (e === '-' || e === '+' || e === 'x' || e === '÷') {
+        if (e === '-' || e === '+' || e === '×' || e === '÷') {
             return true;
         }
     })
@@ -36,7 +36,7 @@ function calculate(parsedArrays) {  //parsedArrays[0] a számokat [1] az operát
             result = result + Number(nums[i]);
         } else if (ops[i - 1] === '-') {
             result = result - Number(nums[i]);
-        } else if (ops[i - 1] === 'x') {
+        } else if (ops[i - 1] === '×') {
             result = result * Number(nums[i]);
         } else if (ops[i - 1] === '÷') {
             result = result / Number(nums[i]);
@@ -51,23 +51,25 @@ function calculate(parsedArrays) {  //parsedArrays[0] a számokat [1] az operát
 
 let displayVar = '';
 let btnContent = '';
-let btnElements = document.querySelectorAll('.calc__btn');
+let btnElements = document.querySelectorAll('.btn__digit, .btn__operator');
 for (let i = 0; i < btnElements.length; i += 1) {
     btnElements[i].addEventListener('click', function (event) {
         btnContent = event.target.textContent;
         if (btnContent === 'C') {
             setDisplay('', '');
-        } else if (btnContent === '=') {
-            parsedArrays = parseExpression(displayVar);
-            if (checkArraysForError(parsedArrays)) {
-                setDisplay('', 'Error');
-            } else {
-                setDisplay(calculate(parsedArrays), calculate(parsedArrays))
-            }
-        }
+        } 
         else {
             displayVar += event.target.textContent;
             displayElement.textContent = displayVar;
         }
     })
 }
+
+document.querySelector('.btn__equation').addEventListener('click', () => {
+    parsedArrays = parseExpression(displayVar);
+    if (checkArraysForError(parsedArrays)) {
+        setDisplay('', 'Error');
+    } else {
+        setDisplay(calculate(parsedArrays), calculate(parsedArrays));
+    }
+})
