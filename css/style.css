@@ -33,11 +33,11 @@ body {
     flex-direction: column;
     background-color: rgb(255, 255, 255);
     border: 1px solid rgb(200, 200, 200);
-    padding: 1rem;
+    padding: .5rem;
 }
 
 .calc__display {
-    border: 2px solid rgba(0, 0, 0, .1);
+    border: 2px solid rgb(242, 242, 242);
     padding: 1rem;
     margin: .2rem;
     flex: 1 0 auto;
@@ -61,22 +61,22 @@ body {
 .calc__btn {
     padding: .5rem 1.7rem;
     margin: .2rem;
-    border: 1px solid rgba(0, 0, 0, .1);
+    border: 1px solid rgb(232, 232, 232);
     align-items: center;
     justify-content: center;
 }
 
 .btn__digit {
-    background-color: rgb(240, 240, 240);
+    background-color: rgb(249, 249, 249);
 }
 
 .btn__operator {
-    background-color: rgb(220, 220, 220);
+    background-color: rgb(221, 221, 221);
 }
 
 .btn__equation {
     flex: 1 0 auto;
-    background-color: rgb(100, 100, 255);
+    background-color: rgb(77, 143, 253);
     color: rgb(255, 255, 255);
 }
 
